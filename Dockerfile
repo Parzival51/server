@@ -1,11 +1,12 @@
-# Java 17 JDK slim taban imajını kullan
 FROM openjdk:17-jdk-slim
 
-# Konteyner içinde /app dizinini oluştur ve çalışma dizini olarak ayarla
 WORKDIR /app
 
-# build/libs/ dizinindeki JAR dosyasını konteynerin /app dizinine kopyala
-COPY build/libs/com.example.ktor-sample-all.jar /app/com.example.ktor-sample-all.jar
+# Projenin tüm dosyalarını Docker konteynerine kopyalayın
+COPY . /app
 
-# Uygulamayı başlat
-CMD ["java", "-jar", "/app/com.example.ktor-sample-all.jar"]
+# JAR dosyasını oluşturmak için Gradle'ı çalıştırın
+RUN ./gradlew buildFatJar
+
+# JAR dosyasını çalıştırın
+CMD ["java", "-jar", "/app/build/libs/com.example.ktor-sample-all.jar"]
