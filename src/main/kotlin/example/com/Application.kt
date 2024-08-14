@@ -16,7 +16,8 @@ fun main(args: Array<String>): Unit = io.ktor.server.netty.EngineMain.main(args)
 fun Application.module() {
     val dbName = "ktor-product-rating"
     val db = KMongo.createClient(
-        connectionString = "mongodb+srv://yusufemreai51:l82rL2r8TuyARnvA@productrating.wpjwteh.mongodb.net/?retryWrites=true&w=majority&appName=productRating"
+        connectionString = "mongodb+srv://yusufemreai51:l82rL2r8TuyARnvA@productrating.wpjwteh.mongodb.net/?retryWrites=true&w=majority&ssl=true&sslInvalidHostNameAllowed=true&appName=productRating
+"
     ).coroutine
         .getDatabase(dbName)
     val productDataSource = MongoProductDataSource(db)
